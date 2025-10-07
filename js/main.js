@@ -12,6 +12,12 @@ const progressBar = document.getElementById('progressBar');
 const tiempoActualEl = document.getElementById('tiempoActual');
 const tiempoTotalEl = document.getElementById('tiempoTotal');
 const pasosLista = document.querySelectorAll('.pasos li');
+const percentAvanceEl = document.getElementById('percentAvance');
+const velBar = document.getElementById('velBar');
+const distBar = document.getElementById('distBar');
+const velInstText = document.getElementById('velInstText');
+const distInstText = document.getElementById('distInstText');
+const droneMarker = document.getElementById('droneMarker');
 const droneSprite = document.getElementById('droneSprite');
 const btnVerProblema = document.getElementById('btnVerProblema');
 
@@ -29,6 +35,7 @@ function calcular() {
   document.getElementById('distPaso').textContent = redondear(distancia);
   // No animar automáticamente; solo reposicionar inicial
   posicionInicial();
+  updateMetrics(0, a, t, distancia);
   return { a, t, vFinal, distancia };
 }
 
@@ -55,6 +62,7 @@ function animarDrone(a, t, distanciaTotal) {
       droneSprite.style.transform = `translate(${x}px, ${Math.sin(elapsed*3)*4}px)`;
       updateProgress(ratio, elapsed, t);
       highlightSteps(ratio);
+      updateMetrics(ratio, a, t, distanciaTotal);
       if (ratio < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
@@ -74,6 +82,7 @@ function animarDrone(a, t, distanciaTotal) {
       const tiempoActual = ratio * t;
       updateProgress(ratio, tiempoActual, t);
       highlightSteps(ratio);
+      updateMetrics(ratio, a, t, distanciaTotal);
     }
   });
 
@@ -97,6 +106,8 @@ function updateProgress(ratio, tiempo, total) {
   if (progressBar) progressBar.style.width = (ratio * 100).toFixed(1) + '%';
   if (tiempoActualEl) tiempoActualEl.textContent = (Math.min(tiempo, total)).toFixed(1) + ' s';
   if (tiempoTotalEl) tiempoTotalEl.textContent = total.toFixed(1) + ' s';
+  if (percentAvanceEl) percentAvanceEl.textContent = Math.round(ratio * 100) + '%';
+  if (droneMarker) droneMarker.style.left = (ratio * 100) + '%';
 }
 
 function highlightSteps(ratio) {
@@ -105,6 +116,17 @@ function highlightSteps(ratio) {
   else if (ratio < 0.5) pasosLista[1]?.classList.add('active');
   else if (ratio < 0.9) pasosLista[2]?.classList.add('active');
   else pasosLista[3]?.classList.add('active');
+}
+
+function updateMetrics(ratio, a, t, distanciaTotal) {
+  // ratio temporal (0..1) -> tiempo actual
+  const tiempoAct = ratio * t;
+  const vInst = a * tiempoAct; // v = a t
+  const sInst = 0.5 * a * tiempoAct * tiempoAct; // s = 1/2 a t^2
+  if (velInstText) velInstText.textContent = redondear(vInst) + ' m/s';
+  if (distInstText) distInstText.textContent = redondear(sInst) + ' m';
+  if (velBar) velBar.style.width = (vInst / (a * t || 1) * 100) + '%';
+  if (distBar) distBar.style.width = (sInst / (distanciaTotal || 1) * 100) + '%';
 }
 
 function posicionInicial() {

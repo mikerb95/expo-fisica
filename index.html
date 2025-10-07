@@ -62,6 +62,16 @@
         </div>
         <div class="col-animacion">
           <h2 class="titulo-animacion">Animación</h2>
+          <div class="metric-bars" aria-label="Barras de magnitudes físicas">
+            <div class="metric" aria-description="Velocidad instantánea">
+              <div class="metric-head"><span>Velocidad v(t) [m/s]</span><span id="velInstText">0.0 m/s</span></div>
+              <div class="metric-bar"><span id="velBar"></span><div class="scale-tag">m·s⁻¹</div></div>
+            </div>
+            <div class="metric" aria-description="Distancia recorrida">
+              <div class="metric-head"><span>Distancia s(t) [m]</span><span id="distInstText">0.0 m</span></div>
+              <div class="metric-bar"><span id="distBar"></span><div class="scale-tag">m</div></div>
+            </div>
+          </div>
           <div class="sim-wrapper">
             <div id="simEscena" class="sim-escena">
               <div class="pista">
@@ -77,8 +87,11 @@
               <button id="startBtn" class="primary-btn">Iniciar Animación</button>
               <button id="simBtn" class="secondary-btn">Reiniciar</button>
               <div class="progress-wrap">
-                <div class="progress-line" aria-label="Progreso animación"><span id="progressBar"></span></div>
-                <div class="tiempos"><span id="tiempoActual">0.0 s</span> / <span id="tiempoTotal">8.0 s</span></div>
+                <div class="progress-line" aria-label="Progreso animación">
+                  <span id="progressBar"></span>
+                  <div id="droneMarker" class="drone-marker" aria-hidden="true"></div>
+                </div>
+                <div class="tiempos"><span id="tiempoActual">0.0 s</span> / <span id="tiempoTotal">8.0 s</span> · <span id="percentAvance">0%</span></div>
               </div>
             </div>
           </div>
