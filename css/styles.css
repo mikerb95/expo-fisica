@@ -57,6 +57,22 @@ body { line-height:1.4; }
 
 .resumen {font-size:1.4rem;font-weight:500;margin:.4rem 0 1rem;}
 
+/* Layout dos columnas */
+.panel-dual {display:flex;gap:3rem;align-items:flex-start;}
+.col-explicacion {flex:1.1;min-width:340px;}
+.col-animacion {flex:1;min-width:340px;display:flex;flex-direction:column;}
+.titulo-animacion {margin:0 0 .6rem;font-size:2.2rem;}
+.pasos {counter-reset: paso;list-style:none;margin:0 0 1.6rem;padding:0;display:flex;flex-direction:column;gap:.75rem;font-size:1.05rem;}
+.pasos li {position:relative;padding:.9rem 1rem .9rem 3.2rem;background:#132132;border:1px solid #203347;border-radius:16px;box-shadow:0 4px 12px -6px rgba(0,0,0,.55);}
+.pasos li::before {counter-increment: paso;content:counter(paso);position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:2rem;height:2rem;border-radius:50%;background:var(--accent-grad);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:1rem;color:#fff;box-shadow:0 0 0 4px #0f172a;}
+.nota {font-size:1rem;color:var(--muted);margin:1rem 0 0;}
+.controles-sim {display:flex;gap:1rem;margin-top:1rem;flex-wrap:wrap;}
+
+@media (max-width:1200px){
+  .panel-dual {flex-direction:column;}
+  .col-animacion {order:2;}
+}
+
 /* Se removieron gráficas */
 
 .sim-wrapper {margin-top:2rem;display:flex;flex-direction:column;gap:1.4rem;}

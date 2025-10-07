@@ -7,6 +7,7 @@ const calcBtn = document.getElementById('calcBtn');
 const velFinalSpan = document.getElementById('velFinal');
 const distRecSpan = document.getElementById('distRecorrida');
 const simBtn = document.getElementById('simBtn');
+const startBtn = document.getElementById('startBtn');
 const droneSprite = document.getElementById('droneSprite');
 const btnVerProblema = document.getElementById('btnVerProblema');
 
@@ -17,7 +18,14 @@ function calcular() {
   const distancia = 0.5 * a * t * t; // s = 1/2 a t^2
   velFinalSpan.textContent = redondear(vFinal);
   distRecSpan.textContent = redondear(distancia);
-  animarDrone(a, t, distancia);
+  // Actualizar texto pasos
+  document.getElementById('aDato').textContent = redondear(a);
+  document.getElementById('tDato').textContent = redondear(t);
+  document.getElementById('velFinalPaso').textContent = redondear(vFinal);
+  document.getElementById('distPaso').textContent = redondear(distancia);
+  // No animar automáticamente; solo reposicionar inicial
+  posicionInicial();
+  return { a, t, vFinal, distancia };
 }
 
 function redondear(num) {
@@ -38,13 +46,19 @@ function animarDrone(a, t, distanciaTotal) {
   pxObjetivo = Math.min((distanciaTotal / 64) * (ancho * 0.9), ancho * 0.9);
 
   window.gsap.killTweensOf(droneSprite);
+  window.gsap.set(droneSprite, { x: 0, y: 0 });
   window.gsap.to(droneSprite, {
     x: pxObjetivo,
-    duration: Math.max(t * 0.6, 0.5),
-    ease: 'power2.out'
+    duration: Math.max(t, 0.5),
+    ease: 'power1.inOut'
   });
-  // efecto vertical suave (flotación)
-  window.gsap.to(droneSprite, { y: -8, duration: 1.2, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+  window.gsap.to(droneSprite, { y: -14, duration: 1, yoyo: true, repeat: -1, ease: 'sine.inOut' });
+}
+
+function posicionInicial() {
+  if (!window.gsap) return;
+  window.gsap.killTweensOf(droneSprite);
+  window.gsap.set(droneSprite, { x: 0, y: 0 });
 }
 
 calcBtn.addEventListener('click', calcular);
@@ -53,7 +67,13 @@ btnVerProblema.addEventListener('click', () => {
 });
 
 simBtn.addEventListener('click', () => {
-  calcular();
+  const { a, t, distancia } = calcular();
+  // solo reset
+});
+
+startBtn.addEventListener('click', () => {
+  const { a, t, distancia } = calcular();
+  animarDrone(a, t, distancia);
 });
 
 // Inicial

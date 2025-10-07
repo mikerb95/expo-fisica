@@ -33,44 +33,52 @@
 
   <main>
     <section id="problema" class="section problema">
-      <h2>Problema</h2>
-      <p class="resumen">Dron desde reposo con <strong>a = 2 m/s²</strong> durante <strong>t = 8 s</strong>.</p>
-      <div class="formula-box compact">
-        <p><strong>v = a·t = 2·8 = 16 m/s</strong></p>
-        <p><strong>s = 1/2·a·t² = 0.5·2·8² = 64 m</strong></p>
-      </div>
-      <div class="interactive-panel reducido">
-        <div class="inputs">
-          <label>Aceleración
-            <input type="number" id="accInput" value="2" step="0.1" min="0" />
-          </label>
-          <label>Tiempo
-            <input type="number" id="timeInput" value="8" step="0.1" min="0" />
-          </label>
-          <button id="calcBtn" class="primary-btn">Actualizar</button>
-        </div>
-        <div class="resultados-grandes">
-          <div class="dato"><span id="velFinal">16</span><small>m/s</small></div>
-          <div class="dato"><span id="distRecorrida">64</span><small>m</small></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section animacion" id="animacion">
-      <h2>Animación</h2>
-      <p class="resumen">Trayectoria proporcional a la distancia calculada.</p>
-      <div class="sim-wrapper">
-        <div id="simEscena" class="sim-escena">
-          <div class="pista">
-            <div class="marcador" style="left:0%">0 m</div>
-            <div class="marcador" style="left:25%">25%</div>
-            <div class="marcador" style="left:50%">50%</div>
-            <div class="marcador" style="left:75%">75%</div>
-            <div class="marcador" style="left:100%">100%</div>
+      <div class="panel-dual">
+        <div class="col-explicacion">
+          <h2>Demostración MRUA</h2>
+          <p class="resumen">Dron parte del reposo (v₀ = 0) con aceleración constante.</p>
+          <ol class="pasos">
+            <li><strong>Datos iniciales:</strong> v₀ = 0, a = <span id="aDato">2</span> m/s², t = <span id="tDato">8</span> s.</li>
+            <li><strong>Velocidad final:</strong> v = v₀ + a·t = <span id="velFinalPaso">16</span> m/s.</li>
+            <li><strong>Distancia:</strong> s = 1/2·a·t² = <span id="distPaso">64</span> m.</li>
+            <li><strong>Interpretación:</strong> v crece lineal; s crece cuadrática (∝ t²).</li>
+          </ol>
+          <div class="interactive-panel reducido">
+            <div class="inputs">
+              <label>Aceleración
+                <input type="number" id="accInput" value="2" step="0.1" min="0" />
+              </label>
+              <label>Tiempo
+                <input type="number" id="timeInput" value="8" step="0.1" min="0" />
+              </label>
+              <button id="calcBtn" class="primary-btn">Actualizar</button>
+            </div>
+            <div class="resultados-grandes">
+              <div class="dato"><span id="velFinal">16</span><small>m/s</small></div>
+              <div class="dato"><span id="distRecorrida">64</span><small>m</small></div>
+            </div>
           </div>
-          <div id="droneSprite" class="drone"></div>
+          <p class="nota">Presiona <strong>Iniciar Animación</strong> para visualizar cómo aumenta la distancia de forma acelerada.</p>
         </div>
-        <button id="simBtn" class="secondary-btn">Reiniciar</button>
+        <div class="col-animacion">
+          <h2 class="titulo-animacion">Animación</h2>
+          <div class="sim-wrapper">
+            <div id="simEscena" class="sim-escena">
+              <div class="pista">
+                <div class="marcador" style="left:0%">0 m</div>
+                <div class="marcador" style="left:25%">25%</div>
+                <div class="marcador" style="left:50%">50%</div>
+                <div class="marcador" style="left:75%">75%</div>
+                <div class="marcador" style="left:100%">100%</div>
+              </div>
+              <div id="droneSprite" class="drone"></div>
+            </div>
+            <div class="controles-sim">
+              <button id="startBtn" class="primary-btn">Iniciar Animación</button>
+              <button id="simBtn" class="secondary-btn">Reiniciar</button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
