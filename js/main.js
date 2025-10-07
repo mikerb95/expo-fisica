@@ -142,6 +142,7 @@ const contenidoFormulas = {
 };
 
 let bufferFormulas = {};
+let pasosConsolidados = new Set();
 
 function prepararFormulas(a,t,v,s){
   bufferFormulas = {
@@ -150,6 +151,9 @@ function prepararFormulas(a,t,v,s){
     f3: contenidoFormulas.step3(a,t,v,s),
     f4: contenidoFormulas.step4()
   };
+  pasosConsolidados.clear();
+  const mobileCons = document.getElementById('mobileConsolidado');
+  if(mobileCons) mobileCons.innerHTML='';
   // limpiar contenedores
   ['fStep1','fStep2','fStep3','fStep4'].forEach(id=>{
     const el = document.getElementById(id); if(el){el.textContent='';el.classList.remove('typing');}
@@ -173,8 +177,22 @@ function actualizarEscrituraFormulas(ratio){
     if (ratio >= ini){
       const local = Math.min(1, (ratio - ini)/(fin - ini));
       escribirProgresivo(dom, bufferFormulas[bufKey]||'', local);
+      if(local >= 1) consolidarPaso(bufKey);
     }
   }
+}
+
+function consolidarPaso(bufKey){
+  if(pasosConsolidados.has(bufKey)) return; // ya consolidado
+  pasosConsolidados.add(bufKey);
+  if(!window.matchMedia('(max-width: 780px)').matches) return; // solo móvil
+  const mobileCons = document.getElementById('mobileConsolidado');
+  if(!mobileCons) return;
+  const titulos = {f1:'1. Datos', f2:'2. Velocidad', f3:'3. Distancia', f4:'4. Interpretación'};
+  const div = document.createElement('div');
+  div.className='paso-box';
+  div.innerHTML = `<h4>${titulos[bufKey]||'Paso'}</h4>${escapeHtml(bufferFormulas[bufKey]||'')}`;
+  mobileCons.appendChild(div);
 }
 
 function actualizarFooterMovil(){
