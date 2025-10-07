@@ -146,6 +146,12 @@ body { line-height:1.4; }
   .names-card {padding:1.1rem 1.4rem;}
 }
 
+/* Separadores entre integrantes (solo móvil) */
+@media (max-width:780px){
+  .names-card ul li {position:relative;}
+  .names-card ul li + li::before {content:"";position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:60%;height:1px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,0.25),rgba(255,255,255,0));}
+}
+
 /* Consolidado móvil de pasos completados */
 .mobile-consolidado {display:none;margin-top:1.4rem;display:none;flex-direction:column;gap:.9rem;}
 .mobile-consolidado .paso-box {background:#132132;border:1px solid #203347;padding:.85rem 1rem;border-radius:14px;box-shadow:0 4px 12px -6px rgba(0,0,0,.55);font-size:.8rem;line-height:1.25;white-space:pre-line;}
