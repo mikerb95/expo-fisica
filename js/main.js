@@ -97,12 +97,17 @@ function customQuadraticEase() {
   return (p) => p * p; // simple ease-in cuadrático
 }
 
-function updateProgress(ratio, tiempo, total) {
-  if (progressBar) progressBar.style.width = (ratio * 100).toFixed(1) + '%';
+function updateProgress(ratioTiempo, tiempo, total) {
+  // En MRUA desde reposo: s ∝ t^2, así que ratio de distancia = (t/t_total)^2 = ratioTiempo^2
+  const ratioDist = Math.min(1, Math.max(0, ratioTiempo * ratioTiempo));
+  if (progressBar) progressBar.style.width = (ratioDist * 100).toFixed(1) + '%';
   if (tiempoActualEl) tiempoActualEl.textContent = (Math.min(tiempo, total)).toFixed(1) + ' s';
   if (tiempoTotalEl) tiempoTotalEl.textContent = total.toFixed(1) + ' s';
-  if (percentAvanceEl) percentAvanceEl.textContent = Math.round(ratio * 100) + '%';
-  if (droneMarker) droneMarker.style.left = (ratio * 100) + '%';
+  const porcentaje = Math.round(ratioDist * 100);
+  if (percentAvanceEl) percentAvanceEl.textContent = porcentaje + '%';
+  if (droneMarker) droneMarker.style.left = (ratioDist * 100) + '%';
+  const avanceBox = document.getElementById('avancePorcBox');
+  if (avanceBox) avanceBox.textContent = porcentaje + '%';
 }
 
 function highlightSteps(ratio) {
@@ -191,6 +196,8 @@ if (simBtn) {
     calcular();
     updateProgress(0, 0, T_FIJO);
     highlightSteps(0);
+    const avanceBox = document.getElementById('avancePorcBox');
+    if (avanceBox) avanceBox.textContent = '0%';
   });
 }
 
