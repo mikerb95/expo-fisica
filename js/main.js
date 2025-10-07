@@ -1,8 +1,6 @@
 // main.js
 // Lógica de cálculo y visualización para la exposición de Física MRUA
 
-import { graficarVelocidad, graficarDistancia } from './plots.js';
-
 const accInput = document.getElementById('accInput');
 const timeInput = document.getElementById('timeInput');
 const calcBtn = document.getElementById('calcBtn');
@@ -12,8 +10,6 @@ const simBtn = document.getElementById('simBtn');
 const droneSprite = document.getElementById('droneSprite');
 const btnVerProblema = document.getElementById('btnVerProblema');
 
-let chartVelocidad, chartDistancia;
-
 function calcular() {
   const a = parseFloat(accInput.value) || 0;
   const t = parseFloat(timeInput.value) || 0;
@@ -21,7 +17,6 @@ function calcular() {
   const distancia = 0.5 * a * t * t; // s = 1/2 a t^2
   velFinalSpan.textContent = redondear(vFinal);
   distRecSpan.textContent = redondear(distancia);
-  actualizarGraficas(a, t);
   animarDrone(a, t, distancia);
 }
 
@@ -29,28 +24,7 @@ function redondear(num) {
   return Number(num.toFixed(2)).toString();
 }
 
-function generarDatos(a, t) {
-  const pasos = 40;
-  const dt = t / pasos;
-  const tiempos = [];
-  const velocidades = [];
-  const distancias = [];
-  for (let i = 0; i <= pasos; i++) {
-    const tiempo = dt * i;
-    tiempos.push(tiempo);
-    velocidades.push(a * tiempo);
-    distancias.push(0.5 * a * tiempo * tiempo);
-  }
-  return { tiempos, velocidades, distancias };
-}
-
-function actualizarGraficas(a, t) {
-  const { tiempos, velocidades, distancias } = generarDatos(a, t);
-  if (chartVelocidad) chartVelocidad.destroy();
-  if (chartDistancia) chartDistancia.destroy();
-  chartVelocidad = graficarVelocidad(tiempos, velocidades);
-  chartDistancia = graficarDistancia(tiempos, distancias);
-}
+// Se removieron las gráficas para versión simplificada
 
 function animarDrone(a, t, distanciaTotal) {
   if (!window.gsap) return;
