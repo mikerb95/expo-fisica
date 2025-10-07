@@ -79,6 +79,9 @@ body { line-height:1.4; }
 .panel-dual {display:flex;gap:3rem;align-items:flex-start;}
 .col-explicacion {flex:1.1;min-width:340px;}
 .col-animacion {flex:1;min-width:340px;display:flex;flex-direction:column;}
+@media (min-width:1201px){
+  .col-animacion {align-self:center;}
+}
 .titulo-animacion {margin:0 0 .6rem;font-size:2.2rem;}
 .pasos {counter-reset: paso;list-style:none;margin:0 0 1.6rem;padding:0;display:flex;flex-direction:column;gap:.75rem;font-size:1.05rem;}
 .pasos li {position:relative;padding:.95rem 1.2rem .95rem 4.8rem;background:#132132;border:1px solid #203347;border-radius:16px;box-shadow:0 4px 12px -6px rgba(0,0,0,.55);} 
