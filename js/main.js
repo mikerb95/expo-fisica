@@ -178,23 +178,34 @@ function posicionInicial() {
   }
 }
 
-btnVerProblema.addEventListener('click', () => {
-  document.getElementById('problema').scrollIntoView({ behavior: 'smooth' });
-});
+if (btnVerProblema) {
+  btnVerProblema.addEventListener('click', () => {
+    const p = document.getElementById('problema');
+    p && p.scrollIntoView({ behavior: 'smooth' });
+  });
+}
 
-simBtn.addEventListener('click', () => {
-  if (timeline) timeline.kill();
-  calcular();
-  updateProgress(0, 0, T_FIJO);
-  highlightSteps(0);
-});
+if (simBtn) {
+  simBtn.addEventListener('click', () => {
+    if (timeline) timeline.kill();
+    calcular();
+    updateProgress(0, 0, T_FIJO);
+    highlightSteps(0);
+  });
+}
 
-startBtn.addEventListener('click', () => {
-  const { a, t, distancia } = calcular();
-  animarDrone(a, t, distancia);
-});
+if (startBtn) {
+  startBtn.addEventListener('click', () => {
+    const { a, t, distancia } = calcular();
+    animarDrone(a, t, distancia);
+  });
+}
 
 // Inicial
 window.addEventListener('load', () => {
-  calcular();
+  const vals = calcular();
+  // Auto start puede habilitarse colocando data-auto en el botón
+  if (startBtn && startBtn.dataset.auto === 'true') {
+    animarDrone(vals.a, vals.t, vals.distancia);
+  }
 });
