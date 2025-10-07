@@ -143,6 +143,7 @@ const contenidoFormulas = {
 
 let bufferFormulas = {};
 let pasosConsolidados = new Set();
+let footerCerrado = false; // indica si el usuario cerró el footer flotante móvil
 
 function prepararFormulas(a,t,v,s){
   bufferFormulas = {
@@ -193,11 +194,24 @@ function consolidarPaso(bufKey){
   div.className='paso-box';
   div.innerHTML = `<h4>${titulos[bufKey]||'Paso'}</h4>${escapeHtml(bufferFormulas[bufKey]||'')}`;
   mobileCons.appendChild(div);
+  if(bufKey === 'f4') {
+    const footerMovil = document.getElementById('mobileStepsFooter');
+    if(footerMovil && !footerMovil.querySelector('.close-mobile-footer')){
+      const btn = document.createElement('button');
+      btn.type='button';
+      btn.className='close-mobile-footer';
+      btn.setAttribute('aria-label','Cerrar explicación fija');
+      btn.textContent='×';
+      btn.addEventListener('click', cerrarFooterMovil);
+      footerMovil.appendChild(btn);
+    }
+  }
 }
 
 function actualizarFooterMovil(){
   const footerMovil = document.getElementById('mobileStepsFooter');
   if(!footerMovil) return;
+  if(footerCerrado) return; // no actualizar si fue cerrado
   // Solo actuar en pantallas pequeñas (coincide con media query 780px)
   if(window.matchMedia('(max-width: 780px)').matches){
     const activo = document.querySelector('.pasos li.active');
@@ -212,6 +226,12 @@ function actualizarFooterMovil(){
 
 function escapeHtml(str=''){
   return str.replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]||c));
+}
+
+function cerrarFooterMovil(){
+  footerCerrado = true;
+  const footerMovil = document.getElementById('mobileStepsFooter');
+  if(footerMovil) footerMovil.style.display='none';
 }
 
 function posicionInicial() {
@@ -238,6 +258,9 @@ if (simBtn) {
     highlightSteps(0);
     const avanceBox = document.getElementById('avancePorcBox');
     if (avanceBox) avanceBox.textContent = '0%';
+    footerCerrado = false; // reactivar footer para nueva corrida
+    const footerMovil = document.getElementById('mobileStepsFooter');
+    if(footerMovil){footerMovil.style.display=''; actualizarFooterMovil();}
   });
 }
 
