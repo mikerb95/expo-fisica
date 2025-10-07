@@ -170,7 +170,6 @@ function posicionInicial() {
   window.gsap.set(droneSprite, { x: 0, y: 0 });
 }
 
-calcBtn.addEventListener('click', calcular);
 btnVerProblema.addEventListener('click', () => {
   document.getElementById('problema').scrollIntoView({ behavior: 'smooth' });
 });
