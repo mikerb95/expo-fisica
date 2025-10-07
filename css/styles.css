@@ -9,7 +9,7 @@
   --radius:18px;
   --shadow:0 8px 24px -6px rgba(0,0,0,.55);
 }
-html,body {margin:0;padding:0;font-family:'Poppins',system-ui,sans-serif;background:var(--bg);color:var(--text);scroll-behavior:smooth;font-size:20px;}
+html,body {margin:0;padding:0;font-family:'Anta',system-ui,sans-serif;background:var(--bg);color:var(--text);scroll-behavior:smooth;font-size:20px;}
 body { line-height:1.4; }
 
 .hero {position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;background:radial-gradient(circle at 30% 30%,#1d2942,#0f172a 60%);} 
