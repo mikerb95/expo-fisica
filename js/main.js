@@ -47,7 +47,8 @@ function animarDrone(a, t, distanciaTotal) {
     // Fallback simple sin GSAP
     let start = null;
     const pista = document.querySelector('.pista');
-    const ancho = pista.getBoundingClientRect().width * 0.9;
+  let ancho = pista.getBoundingClientRect().width * 0.9;
+  if (ancho === 0) ancho = 800; // ancho virtual si está oculto
     function step(ts) {
       if (!start) start = ts;
       const elapsed = (ts - start) / 1000;
@@ -64,7 +65,8 @@ function animarDrone(a, t, distanciaTotal) {
     return;
   }
   const pista = document.querySelector('.pista');
-  const ancho = pista.getBoundingClientRect().width * 0.9;
+  let ancho = pista.getBoundingClientRect().width * 0.9;
+  if (ancho === 0) ancho = 800; // ancho virtual si está oculto
   const destinoX = Math.min((distanciaTotal / 64) * ancho, ancho);
 
   if (timeline) timeline.kill();
