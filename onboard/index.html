@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Acceso Rápido | Exposición Física</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anta&display=swap" rel="stylesheet">
+  <style>
+    :root {--bg:#0f172a;--accent:#06b6d4;--accent-grad:linear-gradient(135deg,#06b6d4,#3b82f6);--text:#e2e8f0;--muted:#94a3b8;}
+    * {box-sizing:border-box;margin:0;padding:0;}
+    body {font-family:'Anta',system-ui,sans-serif;background:radial-gradient(circle at 35% 35%,#1d2942,#0f172a 60%);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem;}
+    .wrapper {text-align:center;display:flex;flex-direction:column;align-items:center;gap:2rem;}
+  h1 {font-size:clamp(2.2rem,6vw,4rem);background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:1px;}
+    .qr-card {background:rgba(255,255,255,0.05);padding:2rem 2.4rem;border:1px solid rgba(255,255,255,0.12);border-radius:28px;box-shadow:0 10px 34px -10px rgba(0,0,0,.7);display:flex;flex-direction:column;align-items:center;gap:1rem;}
+    .qr-card img {width:min(55vw,440px);height:auto;aspect-ratio:1;border-radius:20px;background:#fff;object-fit:cover;}
+    .url {font-size:clamp(1.2rem,2.8vw,2.4rem);font-weight:600;color:#fff;letter-spacing:1px;text-decoration:none;display:inline-flex;align-items:center;gap:.6rem;}
+  .url span {background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+    .hint {font-size:.9rem;color:var(--muted);letter-spacing:.5px;}
+    footer {position:fixed;bottom:.8rem;left:50%;transform:translateX(-50%);font-size:.7rem;color:var(--muted);letter-spacing:.5px;opacity:.8;}
+    @media (max-width:600px){
+      .qr-card {padding:1.5rem 1.8rem;border-radius:22px;}
+      .qr-card img {width:min(70vw,340px);}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper" role="main">
+    <h1>Escanea y Accede</h1>
+    <div class="qr-card" aria-label="Código QR de acceso">
+      <img src="/assets/QR.png" alt="Código QR acceso rápido" loading="lazy" />
+      <a class="url" href="https://tinyurl.com/3114731" target="_blank" rel="noopener" aria-label="Abrir tinyurl 3114731">
+        <span>tinyurl.com/3114731</span>
+      </a>
+      <p class="hint">Apunta tu cámara o pulsa el enlace</p>
+    </div>
+  </div>
+  <footer>Exposición Física · MRUA · 2025</footer>
+</body>
+</html>
