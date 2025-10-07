@@ -121,6 +121,9 @@ body { line-height:1.4; }
 @keyframes rotor {to {transform:rotate(360deg);}}
 
 .footer {padding:2.2rem 1rem;text-align:center;font-size:.9rem;color:var(--muted);background:#0b1423;margin-top:3rem;letter-spacing:.5px;}
+.footer .footer-logos {margin:1rem 0 .3rem;display:flex;justify-content:center;gap:1.2rem;flex-wrap:wrap;align-items:center;}
+.footer .logo-sena {height:60px;width:auto;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4));opacity:.95;transition:transform .35s, opacity .35s;}
+.footer .logo-sena:hover {transform:scale(1.05);opacity:1;}
 .footer .gh-link {display:inline-flex;align-items:center;gap:.55rem;margin-top:.8rem;color:var(--muted);text-decoration:none;font-weight:600;font-size:.85rem;transition:color .3s, transform .3s;}
 .footer .gh-link:hover {color:#fff;transform:translateY(-2px);} 
 .footer .gh-icon {width:22px;height:22px;}
