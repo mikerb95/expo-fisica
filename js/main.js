@@ -26,6 +26,7 @@ function calcular() {
   posicionInicial();
   updateMetrics(0, A_FIJA, T_FIJO, S_FIJA);
   prepararFormulas(A_FIJA, T_FIJO, V_FIJ, S_FIJA);
+  // Debug opcional: console.log('Valores fijos', {A_FIJA, T_FIJO, V_FIJ, S_FIJA});
   return { a: A_FIJA, t: T_FIJO, vFinal: V_FIJ, distancia: S_FIJA };
 }
 
@@ -38,6 +39,10 @@ function redondear(num) {
 let timeline = null;
 
 function animarDrone(a, t, distanciaTotal) {
+  if (t <= 0 || distanciaTotal <= 0) {
+    console.warn('Parámetros inválidos para animación', { a, t, distanciaTotal });
+    return;
+  }
   if (!window.gsap) {
     // Fallback simple sin GSAP
     let start = null;
@@ -165,9 +170,12 @@ function actualizarEscrituraFormulas(ratio){
 }
 
 function posicionInicial() {
-  if (!window.gsap) return;
-  window.gsap.killTweensOf(droneSprite);
-  window.gsap.set(droneSprite, { x: 0, y: 0 });
+  if (window.gsap) {
+    window.gsap.killTweensOf(droneSprite);
+    window.gsap.set(droneSprite, { x: 0, y: 0 });
+  } else if (droneSprite) {
+    droneSprite.style.transform = 'translate(0px,0px)';
+  }
 }
 
 btnVerProblema.addEventListener('click', () => {
