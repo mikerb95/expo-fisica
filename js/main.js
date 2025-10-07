@@ -1,11 +1,11 @@
 // main.js
 // Lógica de cálculo y visualización para la exposición de Física MRUA
 
-const accInput = document.getElementById('accInput');
-const timeInput = document.getElementById('timeInput');
-const calcBtn = document.getElementById('calcBtn');
-const velFinalSpan = document.getElementById('velFinal');
-const distRecSpan = document.getElementById('distRecorrida');
+// Valores fijos del ejercicio
+const A_FIJA = 2; // m/s^2
+const T_FIJO = 8; // s
+const V_FIJ = A_FIJA * T_FIJO; // 16 m/s
+const S_FIJA = 0.5 * A_FIJA * T_FIJO * T_FIJO; // 64 m
 const simBtn = document.getElementById('simBtn');
 const startBtn = document.getElementById('startBtn');
 const progressBar = document.getElementById('progressBar');
@@ -22,17 +22,11 @@ const droneSprite = document.getElementById('droneSprite');
 const btnVerProblema = document.getElementById('btnVerProblema');
 
 function calcular() {
-  const a = parseFloat(accInput.value) || 0;
-  const t = parseFloat(timeInput.value) || 0;
-  const vFinal = a * t; // v = a t (v0 = 0)
-  const distancia = 0.5 * a * t * t; // s = 1/2 a t^2
-  velFinalSpan.textContent = redondear(vFinal);
-  distRecRecorrida?.textContent = redondear(distancia); // fallback safe
-  // No animar automáticamente; solo reposicionar inicial
+  // Reutiliza valores fijos
   posicionInicial();
-  updateMetrics(0, a, t, distancia);
-  prepararFormulas(a, t, vFinal, distancia);
-  return { a, t, vFinal, distancia };
+  updateMetrics(0, A_FIJA, T_FIJO, S_FIJA);
+  prepararFormulas(A_FIJA, T_FIJO, V_FIJ, S_FIJA);
+  return { a: A_FIJA, t: T_FIJO, vFinal: V_FIJ, distancia: S_FIJA };
 }
 
 function redondear(num) {
@@ -184,7 +178,7 @@ btnVerProblema.addEventListener('click', () => {
 simBtn.addEventListener('click', () => {
   if (timeline) timeline.kill();
   calcular();
-  updateProgress(0, 0, parseFloat(timeInput.value)||0);
+  updateProgress(0, 0, T_FIJO);
   highlightSteps(0);
 });
 

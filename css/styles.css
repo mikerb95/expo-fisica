@@ -44,16 +44,7 @@ body { line-height:1.4; }
 .formula-box h3 {margin:.2rem 0 .8rem;font-size:1.2rem;}
 .formula-box p {margin:.35rem 0;}
 
-.interactive-panel {margin:2rem 0;display:flex;flex-wrap:wrap;gap:2.2rem;align-items:flex-start;}
-.interactive-panel.reducido {align-items:center;}
-.interactive-panel .inputs {display:flex;gap:1.4rem;flex-wrap:wrap;align-items:flex-end;background:rgba(255,255,255,0.05);padding:1rem 1.4rem;border-radius:var(--radius);border:1px solid rgba(255,255,255,.12);} 
-.interactive-panel label {display:flex;flex-direction:column;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);} 
-.interactive-panel input {margin-top:.4rem;background:#0f1c33;border:1px solid #334155;color:var(--text);padding:.7rem .85rem;border-radius:12px;font-size:1.05rem;min-width:120px;font-weight:600;}
-.interactive-panel input:focus {outline:2px solid var(--accent);border-color:var(--accent);}
-.resultados-grandes {display:flex;gap:2.5rem;flex-wrap:wrap;align-items:center;}
-.dato {display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0f1c33;border:1px solid #1e334f;padding:1rem 1.6rem;border-radius:var(--radius);min-width:160px;box-shadow:0 4px 14px -4px rgba(0,0,0,.55);}
-.dato span {font-size:3.2rem;line-height:1;font-weight:700;background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:1px;}
-.dato small {font-size:1rem;color:var(--muted);font-weight:600;margin-top:.25rem;letter-spacing:1px;}
+/* Panel interactivo removido en versión fija */
 
 .resumen {font-size:1.4rem;font-weight:500;margin:.4rem 0 1rem;}
 
