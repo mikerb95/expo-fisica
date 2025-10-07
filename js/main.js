@@ -135,10 +135,10 @@ function updateMetrics(ratio, a, t, distanciaTotal) {
 
 // --- Fórmulas progresivas ---
 const contenidoFormulas = {
-  step1: (a,t) => `v0 = 0\na = ${a} m/s^2\nt = ${t} s`,
-  step2: (a,t,v) => `v = v0 + a·t\n  = 0 + ${a}·${t}\n  = ${redondear(v)} m/s`,
-  step3: (a,t,_,s) => `s = 1/2·a·t^2\n  = 0.5·${a}·(${t})^2\n  = ${redondear(s)} m`,
-  step4: () => `Crecimiento:\n v ∝ t (lineal)\n s ∝ t^2 (cuadrático)`
+  step1: (a,t) => `Datos iniciales:\n- v0 = 0 m/s (parte en reposo)\n- a = ${a} m/s² (aceleración constante)\n- t = ${t} s (intervalo de análisis)\nObjetivo: calcular v(t) y s(t) al cabo de ${t} s.`,
+  step2: (a,t,v) => `Velocidad final (MRUA):\nFórmula base: v = v0 + a·t\nComo v0 = 0 ⇒ v = a·t\nSustitución: v = ${a} · ${t} (m/s)\nCálculo: v = ${redondear(v)} m/s\nInterpretación: crece linealmente; cada segundo suma ${a} m/s.`,
+  step3: (a,t,_,s) => `Desplazamiento:\nFórmula general: s = v0·t + (1/2)·a·t²\nComo v0 = 0 ⇒ s = 1/2·a·t²\nSustitución: s = 0.5 · ${a} · (${t})²\nCálculo: s = ${redondear(s)} m\nNota: crecimiento cuadrático; si t se duplicara, s se cuadruplica.`,
+  step4: () => `Interpretación final:\n- v crece ∝ t (pendiente = a).\n- s crece ∝ t² (cada segundo recorre más que el anterior).\n- v_final = 16 m/s, v_prom = v_final/2 = 8 m/s.\n- Verificación: s = v_prom·t = 8·8 = 64 m ✔\nConclusión: la aceleración constante genera aumento lineal de v y cuadrático de s.`
 };
 
 let bufferFormulas = {};
