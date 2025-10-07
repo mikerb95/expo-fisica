@@ -132,4 +132,14 @@ body { line-height:1.4; }
   .names-card {padding:1.1rem 1.4rem;}
 }
 
+/* Footer móvil para pasos */
+.mobile-steps-footer {position:fixed;left:0;right:0;bottom:0;background:rgba(15,23,42,0.92);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,0.1);padding:.65rem .95rem;font-size:.8rem;line-height:1.25;display:none;z-index:900;box-shadow:0 -4px 14px -6px rgba(0,0,0,.6);} 
+.mobile-steps-footer .step-label {font-weight:600;letter-spacing:.5px;color:var(--accent);} 
+.mobile-steps-footer .step-text {display:block;margin-top:.25rem;color:var(--muted);white-space:pre-line;}
+@media (max-width:780px){
+  .mobile-steps-footer {display:block;}
+  body {padding-bottom:90px;} /* espacio para no tapar contenido */
+  .pasos {display:none;} /* ocultar lista original en móvil */
+}
+
 @keyframes fadeIn {from {opacity:0;transform:translateY(12px);} to {opacity:1;transform:translateY(0);}}

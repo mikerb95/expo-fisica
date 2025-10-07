@@ -119,6 +119,7 @@ function highlightSteps(ratio) {
   else if (ratio < 0.9) pasosLista[2]?.classList.add('active');
   else pasosLista[3]?.classList.add('active');
   actualizarEscrituraFormulas(ratio);
+  actualizarFooterMovil();
 }
 
 function updateMetrics(ratio, a, t, distanciaTotal) {
@@ -176,6 +177,25 @@ function actualizarEscrituraFormulas(ratio){
   }
 }
 
+function actualizarFooterMovil(){
+  const footerMovil = document.getElementById('mobileStepsFooter');
+  if(!footerMovil) return;
+  // Solo actuar en pantallas pequeñas (coincide con media query 780px)
+  if(window.matchMedia('(max-width: 780px)').matches){
+    const activo = document.querySelector('.pasos li.active');
+    if(!activo){footerMovil.textContent='';return;}
+    const titulo = activo.querySelector('h3')?.textContent || '';
+    // Capturamos el ID del contenedor formula del paso activo
+    const formulaDiv = activo.querySelector('.formula');
+    const textoFormula = formulaDiv ? formulaDiv.textContent : '';
+    footerMovil.innerHTML = `<span class="step-label">${titulo}</span><span class="step-text">${escapeHtml(textoFormula)}</span>`;
+  }
+}
+
+function escapeHtml(str=''){
+  return str.replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]||c));
+}
+
 function posicionInicial() {
   if (window.gsap) {
     window.gsap.killTweensOf(droneSprite);
@@ -217,4 +237,5 @@ window.addEventListener('load', () => {
   if (startBtn && startBtn.dataset.auto === 'true') {
     animarDrone(vals.a, vals.t, vals.distancia);
   }
+  actualizarFooterMovil();
 });
