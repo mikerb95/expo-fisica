@@ -25,7 +25,7 @@ body { line-height:1.4; }
   .enlarge-desktop.qr-wrapper {max-width:936px;} /* 720px * 1.3 ≈ 936px */
   .cards-row .names-card {max-width:620px;}
 }
-.qr-wrapper {position:relative;background:rgba(255,255,255,0.05);padding:1.8rem;border:1px solid rgba(255,255,255,0.12);border-radius:32px;box-shadow:0 8px 30px -8px rgba(0,0,0,.6);display:flex;flex-direction:column;align-items:center;max-width:720px;}
+.qr-wrapper {position:relative;background:rgba(255,255,255,0.05);padding:1.8rem;border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius);box-shadow:0 8px 30px -8px rgba(0,0,0,.6);display:flex;flex-direction:column;align-items:center;max-width:720px;}
 .qr-wrapper .qr-img {width:100%;height:auto;aspect-ratio:1;border-radius:20px;background:#fff;object-fit:cover;}
 .qr-caption {margin:.9rem 0 0;font-size:1.05rem;text-align:center;color:var(--muted);line-height:1.3;}
 .qr-caption span {display:inline-block;margin-top:.35rem;font-size:1.1rem;font-weight:600;color:#fff;letter-spacing:.5px;}
