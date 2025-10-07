@@ -38,10 +38,22 @@
           <h2>Demostración MRUA</h2>
           <p class="resumen">Dron parte del reposo (v₀ = 0) con aceleración constante.</p>
           <ol class="pasos">
-            <li><strong>Datos iniciales:</strong> v₀ = 0, a = <span id="aDato">2</span> m/s², t = <span id="tDato">8</span> s.</li>
-            <li><strong>Velocidad final:</strong> v = v₀ + a·t = <span id="velFinalPaso">16</span> m/s.</li>
-            <li><strong>Distancia:</strong> s = 1/2·a·t² = <span id="distPaso">64</span> m.</li>
-            <li><strong>Interpretación:</strong> v crece lineal; s crece cuadrática (∝ t²).</li>
+            <li data-step="1">
+              <h3>1. Datos iniciales</h3>
+              <div class="formula" id="fStep1"></div>
+            </li>
+            <li data-step="2">
+              <h3>2. Velocidad final</h3>
+              <div class="formula" id="fStep2"></div>
+            </li>
+            <li data-step="3">
+              <h3>3. Distancia</h3>
+              <div class="formula" id="fStep3"></div>
+            </li>
+            <li data-step="4">
+              <h3>4. Interpretación</h3>
+              <div class="formula" id="fStep4"></div>
+            </li>
           </ol>
           <div class="interactive-panel reducido">
             <div class="inputs">

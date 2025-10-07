@@ -65,6 +65,10 @@ body { line-height:1.4; }
 .pasos {counter-reset: paso;list-style:none;margin:0 0 1.6rem;padding:0;display:flex;flex-direction:column;gap:.75rem;font-size:1.05rem;}
 .pasos li {position:relative;padding:.9rem 1rem .9rem 3.2rem;background:#132132;border:1px solid #203347;border-radius:16px;box-shadow:0 4px 12px -6px rgba(0,0,0,.55);}
 .pasos li::before {counter-increment: paso;content:counter(paso);position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:2rem;height:2rem;border-radius:50%;background:var(--accent-grad);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:1rem;color:#fff;box-shadow:0 0 0 4px #0f172a;}
+.pasos li h3 {margin:.1rem 0 .4rem;font-size:1.05rem;letter-spacing:.5px;color:#e2f4ff;}
+.formula {min-height:1.4rem;font-family:monospace;font-size:.95rem;line-height:1.35;white-space:pre-wrap;position:relative;}
+.formula.typing::after {content:"";position:absolute;right:-6px;top:0;width:10px;height:1.2em;background:var(--accent-grad);animation:blink .9s steps(1,end) infinite;}
+@keyframes blink {50% {opacity:0;}}
 .nota {font-size:1rem;color:var(--muted);margin:1rem 0 0;}
 .controles-sim {display:flex;gap:1rem;margin-top:1rem;flex-wrap:wrap;}
 .progress-wrap {display:flex;align-items:center;gap:1rem;min-width:260px;}

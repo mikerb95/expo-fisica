@@ -27,15 +27,11 @@ function calcular() {
   const vFinal = a * t; // v = a t (v0 = 0)
   const distancia = 0.5 * a * t * t; // s = 1/2 a t^2
   velFinalSpan.textContent = redondear(vFinal);
-  distRecSpan.textContent = redondear(distancia);
-  // Actualizar texto pasos
-  document.getElementById('aDato').textContent = redondear(a);
-  document.getElementById('tDato').textContent = redondear(t);
-  document.getElementById('velFinalPaso').textContent = redondear(vFinal);
-  document.getElementById('distPaso').textContent = redondear(distancia);
+  distRecRecorrida?.textContent = redondear(distancia); // fallback safe
   // No animar automáticamente; solo reposicionar inicial
   posicionInicial();
   updateMetrics(0, a, t, distancia);
+  prepararFormulas(a, t, vFinal, distancia);
   return { a, t, vFinal, distancia };
 }
 
@@ -116,6 +112,7 @@ function highlightSteps(ratio) {
   else if (ratio < 0.5) pasosLista[1]?.classList.add('active');
   else if (ratio < 0.9) pasosLista[2]?.classList.add('active');
   else pasosLista[3]?.classList.add('active');
+  actualizarEscrituraFormulas(ratio);
 }
 
 function updateMetrics(ratio, a, t, distanciaTotal) {
@@ -127,6 +124,50 @@ function updateMetrics(ratio, a, t, distanciaTotal) {
   if (distInstText) distInstText.textContent = redondear(sInst) + ' m';
   if (velBar) velBar.style.width = (vInst / (a * t || 1) * 100) + '%';
   if (distBar) distBar.style.width = (sInst / (distanciaTotal || 1) * 100) + '%';
+}
+
+// --- Fórmulas progresivas ---
+const contenidoFormulas = {
+  step1: (a,t) => `v0 = 0\na = ${a} m/s^2\nt = ${t} s`,
+  step2: (a,t,v) => `v = v0 + a·t\n  = 0 + ${a}·${t}\n  = ${redondear(v)} m/s`,
+  step3: (a,t,_,s) => `s = 1/2·a·t^2\n  = 0.5·${a}·(${t})^2\n  = ${redondear(s)} m`,
+  step4: () => `Crecimiento:\n v ∝ t (lineal)\n s ∝ t^2 (cuadrático)`
+};
+
+let bufferFormulas = {};
+
+function prepararFormulas(a,t,v,s){
+  bufferFormulas = {
+    f1: contenidoFormulas.step1(a,t),
+    f2: contenidoFormulas.step2(a,t,v),
+    f3: contenidoFormulas.step3(a,t,v,s),
+    f4: contenidoFormulas.step4()
+  };
+  // limpiar contenedores
+  ['fStep1','fStep2','fStep3','fStep4'].forEach(id=>{
+    const el = document.getElementById(id); if(el){el.textContent='';el.classList.remove('typing');}
+  });
+}
+
+function escribirProgresivo(id, texto, progresoLocal){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.classList.add('typing');
+  const len = Math.floor(texto.length * progresoLocal);
+  el.textContent = texto.slice(0,len);
+  if (len >= texto.length) el.classList.remove('typing');
+}
+
+// Mapea el avance global (0..1) a sub-rangos por paso para escribir las fórmulas
+function actualizarEscrituraFormulas(ratio){
+  // Rango asignado a cada paso: 0-0.15, 0.15-0.5, 0.5-0.85, 0.85-1
+  const segmentos = [ [0,0.15,'fStep1','f1'], [0.15,0.5,'fStep2','f2'], [0.5,0.85,'fStep3','f3'], [0.85,1,'fStep4','f4'] ];
+  for (const [ini,fin,dom,bufKey] of segmentos){
+    if (ratio >= ini){
+      const local = Math.min(1, (ratio - ini)/(fin - ini));
+      escribirProgresivo(dom, bufferFormulas[bufKey]||'', local);
+    }
+  }
 }
 
 function posicionInicial() {
